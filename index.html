@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nexxa | Assistente de atendimento no WhatsApp para consultórios</title>
+<meta name="description" content="A Nexxa é uma assistente de inteligência artificial que automatiza parte do atendimento administrativo de consultórios e clínicas pelo WhatsApp, com a equipe sempre no controle.">
+<meta name="theme-color" content="#040806">
+<meta property="og:title" content="Nexxa: seu consultório cuida dos pacientes, a Nexxa cuida das conversas">
+<meta property="og:description" content="Assistente de IA para o atendimento administrativo de consultórios no WhatsApp.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23000%27/%3E%3Cpath d=%27M39.8 68.2V40.3A10.4 10.4 0 0 1 60.6 40.3V60%27 fill=%27none%27 stroke=%27%238BEF55%27 stroke-width=%277.7%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2760.7%27 cy=%2766.4%27 r=%275.9%27 fill=%27%238BEF55%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#040806;--bg2:#08100B;--card:#0B130E;--line:#1A2A20;--ink:#F2F7F3;--mut:#9BAAA0;--g1:#A6F47A;--g2:#5FE63A;--grad:linear-gradient(135deg,var(--g1),var(--g2));--f:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--h:"Sora","Inter",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--f);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--h);line-height:1.15;letter-spacing:-.02em;font-weight:600}
+h1{font-size:clamp(2.1rem,5vw,3.6rem)}h2{font-size:clamp(1.6rem,3.4vw,2.35rem)}h3{font-size:1.05rem}
+em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+:focus-visible{outline:2px solid var(--g1);outline-offset:3px}
+.ic{width:26px;height:26px;fill:none;stroke:var(--g1);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.ic.sm{width:20px;height:20px;flex:none}
+.eyebrow{display:inline-block;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);margin-bottom:14px}
+.muted,.head p,.card p,.steps p{color:var(--mut)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;background:var(--grad);color:#05110A;font:600 .95rem var(--f);padding:0 24px;border-radius:12px;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(95,230,58,.25)}.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--g2);box-shadow:none}
+.btn.sm{min-height:38px;padding:0 16px;font-size:.88rem}
+.nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:24px;padding:12px 5vw;padding-top:calc(12px + env(safe-area-inset-top,0px));background:rgba(4,8,6,.8);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.s{border-color:var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font:600 1.1rem var(--h)}
+#menu{margin-left:auto;display:flex;align-items:center;gap:24px;font-size:.92rem;color:var(--mut)}#menu a:hover{color:var(--ink)}
+.menu-cta{display:none}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;margin-left:auto}.burger span{display:block;height:2px;background:var(--ink);margin:7px 10px}
+.hero{position:relative;overflow-x:clip;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;max-width:1180px;margin:auto;padding:80px 5vw 70px}
+.aura{position:absolute;inset:0 -10% auto 35%;height:520px;background:radial-gradient(closest-side,rgba(95,230,58,.14),transparent);pointer-events:none}.aura.b{inset:auto 0 0;margin:auto;height:340px}
+.lead{color:var(--mut);font-size:1.1rem;margin:22px 0 30px;max-width:540px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}.fine{font-size:.82rem;color:var(--mut);margin-top:18px}
+.stage{position:relative;display:grid;place-items:center}
+.chip{position:absolute;z-index:2;font-size:.78rem;padding:6px 12px;border-radius:99px;background:rgba(11,19,14,.9);border:1px solid var(--line);color:var(--g1);animation:fl 6s ease-in-out infinite}
+.c1{top:-14px;right:12%}.c2{bottom:24%;right:-12px;animation-delay:-2s}.c3{bottom:30%;left:-14px;animation-delay:-4s}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.phone{width:100%;max-width:370px;background:#070D09;border:1px solid var(--line);border-radius:28px;padding:14px;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(95,230,58,.07)}
+.phone.big{max-width:560px;margin:auto}
+.ph-top{display:flex;gap:10px;align-items:center;padding:6px 6px 12px;border-bottom:1px solid var(--line)}.ph-top small{display:block;color:var(--g2);font-size:.74rem;line-height:1.2}
+.chat{display:flex;flex-direction:column;gap:9px;padding:14px 2px;min-height:330px}
+.m{max-width:84%;padding:9px 13px;border-radius:14px;font-size:.9rem;line-height:1.45;white-space:pre-line;animation:pop .35s ease both}
+.m.p{align-self:flex-start;background:#141E17;border-bottom-left-radius:4px}.m.n{align-self:flex-end;background:var(--grad);color:#05110A;border-bottom-right-radius:4px}
+.m.a{align-self:center;max-width:100%;background:#1E1707;border:1px solid #5B4510;color:#F0CF86;font-size:.8rem;border-radius:10px}
+.typing{align-self:flex-end;display:flex;gap:4px;padding:12px 14px;background:#0F2A17;border-radius:14px}.typing i{width:6px;height:6px;border-radius:50%;background:var(--g1);animation:b 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-5px);opacity:1}}@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}}
+.sim{text-align:center;font-size:.72rem;color:var(--mut);margin-top:6px}.sim.c{margin-top:16px;font-size:.82rem}
+.sec{max-width:1120px;margin:auto;padding:90px 5vw 0}.narrow{max-width:780px}
+.head{text-align:center;max-width:640px;margin:0 auto 40px}.head p{margin-top:12px}
+.grid{display:grid;gap:16px}.g5{grid-template-columns:repeat(5,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:24px;transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-4px);border-color:#2C5A38}.card .ic{margin-bottom:14px}.card h3{margin-bottom:6px}.card p{font-size:.92rem}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}.l{text-align:left;margin-bottom:16px}
+.alert{display:flex;gap:12px;margin-top:22px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);font-size:.88rem;color:var(--mut)}
+.faz{display:grid;grid-template-columns:1fr 1fr;gap:16px}.faz>div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}.faz h3{margin-bottom:12px}
+ul.ok,ul.no{list-style:none;padding:0;display:grid;gap:10px;font-size:.9rem;color:var(--mut)}
+ul.ok li:before{content:"\2713\00a0";color:var(--g2)}ul.no li:before{content:"\2715\00a0";color:#7C8A80}
+.steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;counter-reset:s}
+.steps:before{content:"";position:absolute;left:8%;right:8%;top:19px;height:1px;background:linear-gradient(90deg,transparent,var(--g2),transparent);opacity:.4}
+.steps li{position:relative}.steps i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--bg);border:1px solid var(--g2);color:var(--g1);font:600 .95rem var(--h);margin-bottom:16px}
+.steps h3{margin-bottom:6px}.steps p{font-size:.9rem}.note{text-align:center;font-size:.85rem;color:var(--mut);margin-top:30px}
+.tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.tabs button{min-height:42px;background:var(--card);color:var(--mut);border:1px solid var(--line);padding:0 20px;border-radius:99px;cursor:pointer;font:500 .9rem var(--f);transition:.2s}
+.tabs button:hover{color:var(--ink)}.tabs button[aria-selected=true]{background:var(--grad);color:#05110A;border-color:transparent;font-weight:600}
+.panel{padding:8px 4px;display:grid;gap:14px;font-size:.88rem}.panel h4{font:600 .8rem var(--f);color:var(--g1);letter-spacing:.08em;text-transform:uppercase}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.row small{color:var(--mut)}.tag{font-size:.72rem;padding:2px 10px;border-radius:99px;border:1px solid currentColor;color:var(--g1);white-space:nowrap}.tag.w{color:#F0CF86}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+summary{cursor:pointer;padding:18px 22px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:12px;min-height:56px;align-items:center}
+summary::-webkit-details-marker{display:none}summary:after{content:"+";color:var(--g1);font-size:1.4rem;line-height:1;transition:transform .25s}details[open] summary:after{transform:rotate(45deg)}
+details p{padding:0 22px 20px;color:var(--mut);font-size:.93rem}
+.cta-final{position:relative;text-align:center;max-width:860px;margin:100px auto 70px;padding:64px 5vw;border:1px solid var(--line);border-radius:28px;background:var(--card);overflow:hidden}
+.cta-final>*:not(.aura){position:relative}.cta-final .lg{margin:0 auto 18px;display:block}.cta-final p{color:var(--mut);margin:14px 0 28px}
+footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;padding:26px 5vw calc(30px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);color:var(--mut)}
+dialog{margin:auto;width:min(480px,calc(100% - 28px));max-height:calc(100dvh - 28px);overflow:auto;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:22px;padding:30px 26px}
+dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+.x{position:absolute;top:10px;right:12px;width:44px;height:44px;background:none;border:0;color:var(--mut);font-size:1.8rem;cursor:pointer}
+dialog h2{margin-bottom:6px;font-size:1.4rem;padding-right:40px}form{display:grid;gap:14px;margin-top:20px}
+label{display:grid;gap:6px;font-size:.84rem;color:var(--mut)}
+input,textarea{width:100%;background:#060B08;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;font-size:1rem}
+input:focus,textarea:focus{outline:none;border-color:var(--g2)}input[aria-invalid=true]{border-color:#E5736A}
+.err{color:#F09A92;min-height:0}.hp{position:absolute;left:-9999px;height:0;opacity:0}
+.status{font-size:.88rem;min-height:1.2em}.status.ok{color:var(--g1)}.status.bad{color:#F09A92}
+.done{text-align:center;padding:14px 0}.done .ic{width:40px;height:40px;margin-bottom:14px}.done p{color:var(--mut);margin-top:10px}
+.js .rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}.js .rv.v,.show .rv{opacity:1;transform:none}
+@media (max-width:980px){.g5{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}.steps:before{display:none}.split{grid-template-columns:1fr}}
+@media (max-width:760px){
+ .hero{grid-template-columns:1fr;padding-top:48px;gap:34px}.chip{display:none}.sec{padding-top:70px}
+ .nav-cta{display:none}.burger{display:block}
+ #menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);padding:8px 5vw 20px;border-bottom:1px solid var(--line)}
+ #menu.open{display:flex}#menu a{padding:14px 0;border-bottom:1px solid var(--line);font-size:1rem}.menu-cta{display:inline-flex;margin-top:16px}
+ .g5,.g3,.steps,.faz{grid-template-columns:1fr}.cta .btn{flex:1 1 100%}.cta-final{margin:70px 14px 50px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.js .rv{opacity:1;transform:none}}
+
+</style>
+<script>document.documentElement.classList.add("js");setTimeout(function(){document.documentElement.classList.add("show")},2500)</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="logo" viewBox="0 0 100 100"><defs><linearGradient id="lgg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A6F47A"/><stop offset="1" stop-color="#6FE63F"/></linearGradient></defs><rect width="100" height="100" rx="22" fill="#000"/><path d="M39.8 68.2V40.3A10.4 10.4 0 0 1 60.6 40.3V60" fill="none" stroke="url(#lgg)" stroke-width="7.7" stroke-linecap="round"/><circle cx="60.7" cy="66.4" r="5.9" fill="url(#lgg)"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 6 2 7 2 7H4s2-1 2-7"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#topo" aria-label="Nexxa, início"><svg class="lg" width="32" height="32" aria-hidden="true"><use href="#logo"/></svg><span>Nexxa</span></a>
+  <nav id="menu" aria-label="Principal">
+    <a href="#problema">Problema</a><a href="#como">Como funciona</a><a href="#beneficios">Benefícios</a><a href="#demo">Demonstração</a><a href="#faq">Dúvidas</a>
+    <button class="btn sm menu-cta" data-open>Solicitar demonstração</button>
+  </nav>
+  <button class="btn sm nav-cta" data-open>Solicitar demonstração</button>
+  <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+</header>
+
+<main id="topo">
+<section class="hero">
+  <div class="aura" aria-hidden="true"></div>
+  <div class="hero-txt rv">
+    <span class="eyebrow">Atendimento administrativo por IA</span>
+    <h1>Seu consultório cuida dos pacientes. <em>A Nexxa cuida das conversas.</em></h1>
+    <p class="lead">Uma assistente de inteligência artificial que responde dúvidas administrativas, auxilia no agendamento e passa a conversa para a equipe quando necessário. Tudo pelo WhatsApp do consultório.</p>
+    <div class="cta"><button class="btn" data-open>Solicitar demonstração</button><a class="btn ghost" href="#como">Como funciona</a></div>
+    <p class="fine">Assistente administrativa. Não diagnostica nem orienta tratamentos.</p>
+  </div>
+  <div class="stage rv" aria-label="Simulação ilustrativa de conversa">
+    <span class="chip c1">Dúvida administrativa</span><span class="chip c2">Agendamento</span><span class="chip c3">Equipe no controle</span>
+    <div class="phone">
+      <div class="ph-top"><svg class="lg" width="28" height="28" aria-hidden="true"><use href="#logo"/></svg><div><b>Nexxa</b><small>assistente virtual</small></div></div>
+      <div class="chat" id="heroChat" aria-live="off"></div>
+      <p class="sim">Simulação ilustrativa com dados fictícios</p>
+    </div>
+  </div>
+</section>
+
+<section id="problema" class="sec">
+  <div class="head rv"><span class="eyebrow">O problema</span><h2>A rotina de mensagens pesa na recepção</h2><p>Quando o WhatsApp vira a principal porta de entrada do consultório, o atendimento administrativo se acumula.</p></div>
+  <div class="grid g5">
+    <article class="card rv"><svg class="ic"><use href="#i-clock"/></svg><h3>Demora para responder</h3><p>Mensagens fora do horário ou em momentos de agenda cheia ficam esperando.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-repeat"/></svg><h3>Perguntas repetitivas</h3><p>Horários, endereço, valores e convênios tomam tempo da equipe todos os dias.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-grid"/></svg><h3>Pedidos desorganizados</h3><p>Solicitações chegam de formas diferentes e precisam virar horários na agenda.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-bell"/></svg><h3>Confirmações manuais</h3><p>Confirmar consultas e lembrar pacientes é uma tarefa constante.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-chat"/></svg><h3>Conversas esquecidas</h3><p>Contatos que não concluíram o atendimento podem ficar sem retorno.</p></article>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="split">
+    <div class="rv"><span class="eyebrow">O que é a Nexxa</span><h2 class="l">Uma assistente para a parte administrativa do atendimento</h2>
+      <p class="muted">A Nexxa conversa com o paciente pelo WhatsApp do consultório, responde com as informações que a própria clínica cadastra e organiza os pedidos de agendamento. A equipe acompanha tudo e assume quando quiser.</p>
+      <p class="alert"><svg class="ic sm"><use href="#i-shield"/></svg><span>Em possível urgência, a Nexxa não avalia o caso: segue uma regra fixa, orienta procurar atendimento de emergência (SAMU 192) e alerta a equipe.</span></p></div>
+    <div class="faz rv">
+      <div><h3>O que a Nexxa faz</h3><ul class="ok"><li>Responde dúvidas administrativas</li><li>Auxilia no agendamento</li><li>Avisa e envolve a equipe</li><li>Encaminha para uma pessoa</li></ul></div>
+      <div><h3>O que a Nexxa não faz</h3><ul class="no"><li>Diagnosticar ou interpretar sintomas</li><li>Prescrever medicamentos</li><li>Recomendar tratamentos</li><li>Substituir profissionais de saúde</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="como" class="sec">
+  <div class="head rv"><span class="eyebrow">Como funciona</span><h2>Do primeiro contato à equipe no controle</h2></div>
+  <ol class="steps">
+    <li class="rv"><i>1</i><h3>O paciente chama</h3><p>Ele entra em contato pelo WhatsApp do consultório.</p></li>
+    <li class="rv"><i>2</i><h3>A assistente responde</h3><p>Esclarece dúvidas administrativas com base nas informações cadastradas pela clínica.</p></li>
+    <li class="rv"><i>3</i><h3>Ajuda a agendar</h3><p>Conduz a marcação e pode consultar horários, conforme a integração com a agenda.</p></li>
+    <li class="rv"><i>4</i><h3>A equipe assume</h3><p>A equipe acompanha as conversas e entra quando for necessário.</p></li>
+  </ol>
+  <p class="note rv">O agendamento depende da configuração e da integração com a agenda utilizada pelo consultório.</p>
+</section>
+
+<section id="beneficios" class="sec">
+  <div class="head rv"><span class="eyebrow">Como a Nexxa ajuda</span><h2>Menos tarefas repetitivas, mais controle</h2></div>
+  <div class="grid g3">
+    <article class="card rv"><svg class="ic"><use href="#i-chat"/></svg><h3>Respostas automatizadas</h3><p>Horários, endereço, valores, convênios e especialidades, com as informações fornecidas pelo consultório.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-cal"/></svg><h3>Agendamentos organizados</h3><p>Auxilia na marcação, confirmação, remarcação e cancelamento, conforme as integrações disponíveis.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-bell"/></svg><h3>Lembretes de consultas</h3><p>Permite configurar mensagens para lembrar os pacientes dos compromissos.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-back"/></svg><h3>Acompanhamento</h3><p>Possibilita retomar contatos que não concluíram o atendimento, conforme as regras configuradas.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-user"/></svg><h3>Supervisão humana</h3><p>Encaminha a conversa para a equipe quando o paciente pede ou quando falta informação.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-grid"/></svg><h3>Painel de acompanhamento</h3><p>A proposta inclui uma interface web para ver conversas, agenda e indicadores de atendimento.</p></article>
+  </div>
+</section>
+
+<section id="demo" class="sec">
+  <div class="head rv"><span class="eyebrow">Demonstração visual</span><h2>Veja como seria a experiência</h2><p>Escolha uma situação. Tudo aqui é ilustrativo, com dados fictícios, e não representa um produto já implantado.</p></div>
+  <div class="demo rv">
+    <div class="tabs" role="tablist" id="tabs">
+      <button role="tab" aria-selected="true" data-k="agendar">Agendamento</button>
+      <button role="tab" aria-selected="false" data-k="lembrete">Lembrete</button>
+      <button role="tab" aria-selected="false" data-k="painel">Painel</button>
+    </div>
+    <div class="phone big" id="demoBox"><div class="chat" id="demoChat" aria-live="polite"></div></div>
+    <p class="sim c">Demonstração visual com dados fictícios</p>
+  </div>
+</section>
+
+<section id="faq" class="sec narrow">
+  <div class="head rv"><span class="eyebrow">Dúvidas</span><h2>Perguntas frequentes</h2></div>
+  <details class="rv"><summary>A Nexxa dá orientação médica?</summary><p>Não. Ela cuida apenas do atendimento administrativo e não diagnostica, não interpreta sintomas, não prescreve nem recomenda tratamentos.</p></details>
+  <details class="rv"><summary>Como ficam os dados dos pacientes?</summary><p>A proposta é coletar o mínimo necessário, como telefone e motivo administrativo, e tratar os dados conforme a LGPD, com contrato entre a Nexxa e o consultório. Os detalhes serão definidos antes da implantação.</p></details>
+  <details class="rv"><summary>Funciona com a agenda que já uso?</summary><p>Depende da integração. Na demonstração, avaliamos qual agenda o consultório utiliza.</p></details>
+  <details class="rv"><summary>A equipe pode assumir a conversa?</summary><p>Sim. A supervisão humana é parte da proposta: a equipe pode assumir a qualquer momento.</p></details>
+</section>
+
+<section class="cta-final">
+  <div class="aura b" aria-hidden="true"></div>
+  <svg class="lg rv" width="56" height="56" aria-hidden="true"><use href="#logo"/></svg>
+  <h2 class="rv">Seu atendimento pode ser mais inteligente.</h2>
+  <p class="rv">Conheça a Nexxa e veja como ela pode se encaixar na rotina do seu consultório.</p>
+  <button class="btn rv" data-open>Solicitar demonstração</button>
+</section>
+</main>
+
+<footer><div class="brand"><svg class="lg" width="26" height="26" aria-hidden="true"><use href="#logo"/></svg><span>Nexxa</span></div><small>© <span id="ano"></span> Nexxa. Assistente de atendimento administrativo; não substitui profissionais de saúde.</small></footer>
+
+<dialog id="dlg" aria-labelledby="dlgT">
+  <button class="x" id="fechar" aria-label="Fechar">&times;</button>
+  <div id="dlgBody">
+    <h2 id="dlgT">Solicitar demonstração</h2>
+    <p class="muted">Conte um pouco sobre o consultório. Não envie dados de pacientes.</p>
+    <form id="form" novalidate>
+      <label>Nome<input name="nome" autocomplete="name" required><small class="err"></small></label>
+      <label>Consultório ou clínica<input name="clinica" autocomplete="organization" required><small class="err"></small></label>
+      <label>E-mail profissional<input name="email" type="email" autocomplete="email" required><small class="err"></small></label>
+      <label>Especialidade<input name="especialidade" required><small class="err"></small></label>
+      <label>Principal necessidade de atendimento (opcional)<textarea name="necessidade" rows="3" maxlength="400"></textarea></label>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+      <button class="btn" id="enviar" type="submit">Enviar solicitação</button>
+    </form>
+  </div>
+</dialog>
+<script>
+// CONFIGURAÇÃO DOS CONTATOS (nada aqui é segredo: tudo isto fica visível no navegador).
+// Opção 1: serviço de formulários, como Formspree (https://formspree.io). Cole a URL do formulário:
+//   formEndpoint: "https://formspree.io/f/SEU_ID"
+// Opção 2: WhatsApp comercial (DDI + DDD + número, só dígitos): whatsappNumber: "55DDDNUMERO"
+// Se as duas estiverem vazias, o formulário avisa que ainda não está conectado (não finge enviar).
+window.NEXXA_CONFIG = { formEndpoint: "https://formspree.io/f/xwllbpwj", whatsappNumber: "5515991933749" };
+
+const $ = (s, r = document) => r.querySelector(s);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const CFG = window.NEXXA_CONFIG || {};
+
+/* ---------- Conversas simuladas (dados fictícios) ---------- */
+const cenas = {
+  agendar: [["p","Oi, vocês atendem dermatologia? Quero marcar uma consulta."],
+    ["n","Olá! Sou a assistente virtual do consultório. Posso ajudar com agendamento e informações. Para falar com uma pessoa, digite 1."],
+    ["n","Tenho estes horários:\nA) 12/11 às 09:00\nB) 12/11 às 15:30\nC) 13/11 às 10:00\nResponda com a letra do horário."],
+    ["p","B"],["n","Agendado para 12/11 às 15:30. Posso ajudar em mais alguma coisa?"]],
+  lembrete: [["n","Lembrete: sua consulta é amanhã, 12/11 às 15:30. Responda A para confirmar ou B para remarcar."],
+    ["p","A"],["n","Consulta confirmada. Leve um documento com foto e a carteirinha do convênio."],
+    ["p","Qual o endereço?"],["n","Rua Exemplo, 100, Sorocaba-SP."]],
+  urgencia: [["p","Estou com falta de ar e dor no peito"],
+    ["n","Isso pode ser uma urgência. Ligue 192 (SAMU) ou vá ao pronto-socorro mais próximo."],
+    ["a","Regra fixa: equipe do consultório alertada e conversa passada para uma pessoa"]]
+};
+const hero = [["p","Boa noite! Têm horário essa semana?"],["n","Boa noite! Tenho quarta às 10h e sexta às 14h. Qual prefere?"],["p","Sexta"],["n","Pronto, agendado para sexta, 14h."]];
+
+async function tocar(box, msgs, tk) {
+  const id = tk.id; box.innerHTML = "";
+  for (const [q, t] of msgs) {
+    if (tk.id !== id) return;
+    let d;
+    if (!reduz) { if (q === "n") { d = document.createElement("div"); d.className = "typing"; d.innerHTML = "<i></i><i></i><i></i>"; box.append(d); await sleep(850); } else await sleep(650); }
+    if (d) d.remove();
+    if (tk.id !== id) return;
+    const m = document.createElement("div"); m.className = "m " + q; m.textContent = t; box.append(m);
+  }
+}
+const PAINEL = `<div class="panel" aria-label="Prévia ilustrativa do painel">
+<h4>Conversas</h4>
+<div class="row"><span>Paciente A <small>quer agendar</small></span><span class="tag">IA atendendo</span></div>
+<div class="row"><span>Paciente B <small>pediu atendente</small></span><span class="tag w">Equipe assumiu</span></div>
+<div class="row"><span>Paciente C <small>aguardando horário</small></span><span class="tag">IA atendendo</span></div>
+<h4>Agenda de hoje</h4>
+<div class="row"><span>09:00 <small>Consulta</small></span><span class="tag">Confirmada</span></div>
+<div class="row"><span>15:30 <small>Consulta</small></span><span class="tag w">A confirmar</span></div></div>`;
+const tk = { id: 0 }, box = $("#demoBox");
+function demo(k) {
+  tk.id++;
+  if (k === "painel") { box.innerHTML = PAINEL; return; }
+  box.innerHTML = '<div class="chat" id="demoChat" aria-live="polite"></div>';
+  tocar($("#demoChat"), cenas[k], tk);
+}
+$("#tabs").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  document.querySelectorAll("#tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
+  demo(b.dataset.k);
+});
+(async () => { const t = { id: 0 }; do { await tocar($("#heroChat"), hero, t); if (reduz) break; await sleep(5000); } while (true); })();
+let ini = false;
+new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting && !ini) { ini = true; demo("agendar"); o.disconnect(); } }), { threshold: .25 }).observe($("#demo"));
+
+/* ---------- Revelar ao rolar ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("v"); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+/* ---------- Menu e navbar ---------- */
+$("#burger").addEventListener("click", () => { const o = $("#menu").classList.toggle("open"); $("#burger").setAttribute("aria-expanded", o); });
+$("#menu").addEventListener("click", e => { if (e.target.closest("a,button")) { $("#menu").classList.remove("open"); $("#burger").setAttribute("aria-expanded", "false"); } });
+addEventListener("scroll", () => $("#nav").classList.toggle("s", scrollY > 10), { passive: true });
+$("#ano").textContent = new Date().getFullYear();
+
+/* ---------- Formulário ---------- */
+const dlg = $("#dlg"), form = $("#form"), status = $("#status"), btn = $("#enviar"), corpo = form.parentElement;
+document.querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", () => { dlg.showModal(); form.elements.nome.focus(); }));
+$("#fechar").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+
+const regras = {
+  nome: v => v.trim().length >= 2 || "Informe o seu nome.",
+  clinica: v => v.trim().length >= 2 || "Informe o nome do consultório ou clínica.",
+  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || "Informe um e-mail válido.",
+  especialidade: v => v.trim().length >= 2 || "Informe a especialidade."
+};
+function validar() {
+  let ok = true;
+  for (const [n, fn] of Object.entries(regras)) {
+    const el = form.elements[n], r = fn(el.value), err = el.parentElement.querySelector(".err");
+    el.setAttribute("aria-invalid", r !== true); err.textContent = r === true ? "" : r;
+    if (r !== true && ok) { el.focus(); ok = false; }
+  }
+  return ok;
+}
+form.addEventListener("input", e => { if (e.target.getAttribute("aria-invalid")) { e.target.removeAttribute("aria-invalid"); const s = e.target.parentElement.querySelector(".err"); if (s) s.textContent = ""; } });
+function msg(t, c) { status.textContent = t; status.className = "status " + (c || ""); }
+function sucesso(texto) {
+  corpo.innerHTML = `<div class="done"><svg class="ic"><use href="#i-shield"/></svg><h2>Solicitação recebida</h2><p>${texto}</p><button class="btn ghost" style="margin-top:20px" onclick="document.getElementById('dlg').close()">Fechar</button></div>`;
+}
+form.addEventListener("submit", async e => {
+  e.preventDefault(); msg("");
+  if (form.elements.website.value) return;                 // honeypot: ignora robôs
+  if (!validar()) return;
+  const d = Object.fromEntries(new FormData(form)); delete d.website;
+  if (CFG.formEndpoint) {
+    btn.disabled = true; btn.textContent = "Enviando..."; msg("Enviando sua solicitação...");
+    try {
+      const r = await fetch(CFG.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(d) });
+      if (!r.ok) throw new Error(r.status);
+      sucesso("Recebemos os seus dados e entraremos em contato por e-mail para combinar a demonstração.");
+    } catch { msg("Não foi possível enviar agora. Verifique a conexão e tente novamente.", "bad"); btn.disabled = false; btn.textContent = "Enviar solicitação"; }
+  } else if (CFG.whatsappNumber) {
+    const t = `Olá! Quero solicitar uma demonstração da Nexxa.\nNome: ${d.nome}\nConsultório: ${d.clinica}\nE-mail: ${d.email}\nEspecialidade: ${d.especialidade}` + (d.necessidade ? `\nNecessidade: ${d.necessidade}` : "");
+    window.open(`https://wa.me/${CFG.whatsappNumber}?text=${encodeURIComponent(t)}`, "_blank", "noopener");
+    sucesso("Abrimos o WhatsApp com a sua mensagem pronta. É só enviar para concluir a solicitação.");
+  } else {
+    msg("O formulário ainda não está conectado. Configure js/config.js (formEndpoint ou whatsappNumber).", "bad");
+  }
+});
+
+</script>
+</body>
+</html>
